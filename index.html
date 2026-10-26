@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f0e5">
+  <meta name="description" content="Our 6 Months Together — Huy Tran & Thuỳ Linh. Một cuốn nhật ký nhỏ lưu giữ tình yêu và những lời muốn nói.">
+  <title>Our 6 Months Together — Huy Tran & Thuỳ Linh</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='85'%3E%E2%99%A5%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"><span></span></div>
+  <div class="ambient-orbit ambient-orbit-one" aria-hidden="true"></div>
+  <div class="ambient-orbit ambient-orbit-two" aria-hidden="true"></div>
+  <div class="paper-grain" aria-hidden="true"></div>
+  <aside class="floating-music" id="floatingMusic" aria-label="Trình phát nhạc" role="region">
+    <div class="floating-music-top"><span class="floating-kicker">OUR LITTLE SONG <span class="icon-heart" aria-hidden="true">♡</span></span><div class="floating-actions"><button type="button" id="floatingResize" class="floating-resize" aria-label="Thu gọn trình phát" title="Thu gọn trình phát"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4M9 12h6M12 9v6"/></svg></button><button type="button" id="floatingPlay" class="floating-play" aria-label="Phát nhạc"><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button></div></div>
+    <div class="floating-track">Từ thích thích thành thương thương</div>
+    <div class="floating-artist">AMEE &amp; Hoàng Dũng</div>
+    <div class="floating-volume"><button type="button" id="floatingMute" class="floating-mute" aria-label="Tắt tiếng" title="Tắt tiếng"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4H4zm12-1 5 6m0-6-5 6"/></svg></button><input id="floatingVolume" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Điều chỉnh âm lượng"><span id="floatingVolumeValue">75%</span></div>
+    <div class="floating-status" id="floatingStatus" aria-live="polite">Đang thử phát nhạc…</div>
+  </aside>
+
+  <header class="topbar">
+    <a class="wordmark" href="#home" aria-label="Về đầu trang">H <span>♡</span> L</a>
+    <nav aria-label="Điều hướng chính">
+      <a href="#time">Chúng mình</a>
+      <a href="#letter">Lá thư</a>
+      <a href="#time">Ảnh của chúng mình</a>
+      <a href="#surprise">Bất ngờ</a>
+    </nav>
+    <button class="music-mini" id="musicMini" aria-label="Phát hoặc tạm dừng nhạc">♫ <span>Music</span></button>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-kicker"><span class="tiny-star tiny-star-icon" aria-hidden="true">♡</span> A LITTLE BOOK OF US <span class="tiny-star tiny-star-icon" aria-hidden="true">♡</span></div>
+      <h1>Our <em>6 Months</em><br>Together</h1>
+      <p class="hero-subtitle">Một cuốn nhật ký nhỏ, dành riêng cho <span>Huy Tran</span> & <span>Thuỳ Linh</span>.</p>
+      <div class="cover-wrap">
+        <div class="tape tape-left"></div><div class="tape tape-right"></div>
+        <div class="cover">
+          <div class="cover-stamp">♡</div>
+          <div class="cover-small">CHAPTER NO. 01</div>
+          <div class="cover-title">Our little<br><i>love story</i></div>
+          <div class="cover-photos" aria-label="Ảnh của Huy và Thuỳ Linh">
+            <figure class="cover-photo cover-photo-left">
+              <img src="assets/images/huy-tran.jpeg" alt="Huy Tran" loading="eager" decoding="async">
+              <figcaption>Huy Tran</figcaption>
+            </figure>
+            <span class="cover-photo-heart" aria-hidden="true">♡</span>
+            <figure class="cover-photo cover-photo-right">
+              <img src="assets/images/thuy-linh.jpeg" alt="Thuỳ Linh" loading="eager" decoding="async">
+              <figcaption>Thuỳ Linh</figcaption>
+            </figure>
+          </div>
+          <div class="cover-date">30 · 04 · 2026 — 30 · 10 · 2026</div>
+          <button class="open-book" id="openBook">Mở cuốn nhật ký <span aria-hidden="true">↗</span></button>
+          <div class="cover-flower flower-one">✿</div><div class="cover-flower flower-two">❀</div>
+        </div>
+      </div>
+      <div class="scroll-note"><span></span> CUỘN XUỐNG ĐỂ KHÁM PHÁ</div>
+    </section>
+
+    <div id="diaryContent" class="diary-content" hidden>
+    <section class="intro section" id="time">
+      <div class="section-label">01 / THE TWO OF US</div>
+      <h2>Hai nhân vật<br><em>chính</em> trong cuốn sổ này.</h2>
+      <p class="section-copy">Hai bức ảnh, hai cái tên, và một ngày đặc biệt để nhớ.</p>
+      <div class="couple-grid">
+        <article class="portrait-card portrait-left">
+          <div class="photo-pin" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8m0-12.8L5.6 18.4"/></svg></div>
+          <div class="photo-frame"><img src="assets/images/huy-tran.jpeg" alt="Huy Tran ôm bó hoa hồng" loading="eager"></div>
+          <div class="portrait-caption"><span class="caption-small">THE BOY</span><h3>Huy Tran</h3><p>Người gửi những lời thương ♡</p></div>
+          <span class="hand-note note-left">that's me!</span>
+        </article>
+        <div class="between-heart" aria-hidden="true">♡<span>♡</span></div>
+        <article class="portrait-card portrait-right">
+          <div class="photo-pin" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5c1.4 3 2.5 4.1 5.5 5.5-3 1.4-4.1 2.5-5.5 5.5-1.4-3-2.5-4.1-5.5-5.5 3-1.4 4.1-2.5 5.5-5.5Z"/><path d="M12 14.5v6"/></svg></div>
+          <div class="photo-frame"><img src="assets/images/thuy-linh.jpeg" alt="Thuỳ Linh ôm bó hoa hồng" loading="eager"></div>
+          <div class="portrait-caption"><span class="caption-small">THE GIRL</span><h3>Thuỳ Linh</h3><p>Thúi iuuu của anh ♡</p></div>
+          <span class="hand-note note-right">my favorite</span>
+        </article>
+      </div>
+      <div class="date-card">
+        <div class="date-icon">♡</div>
+        <div><span class="caption-small">OFFICIALLY US SINCE</span><strong>30.04.2026</strong><p>Và hôm nay, mình có thêm một cột mốc để thương.</p></div>
+      </div>
+      <div class="counter-wrap">
+        <div class="counter-heading">Thời gian mình đã bên nhau</div>
+        <div class="counter" aria-live="off">
+          <div><strong id="days">—</strong><span>ngày</span></div>
+          <div><strong id="hours">—</strong><span>giờ</span></div>
+          <div><strong id="minutes">—</strong><span>phút</span></div>
+          <div><strong id="seconds">—</strong><span>giây</span></div>
+        </div>
+        <p class="counter-footnote">Từng giây trôi qua, lại thêm một chút thời gian của chúng mình.</p>
+      </div>
+    </section>
+
+    <section class="letter-section section" id="letter">
+      <div class="section-label">02 / WORDS FROM MY HEART</div>
+      <h2>Có vài điều<br><em>anh muốn nói.</em></h2>
+      <p class="section-copy">Không cần dịp gì lớn lao. Chỉ là có những điều anh muốn em biết.</p>
+      <article class="letter-paper">
+        <div class="letter-top"><span>MY DEAREST</span><span>♡ 30.10.2026</span></div>
+        <div class="letter-rule"></div>
+        <h3>Gửi em, người anh thương</h3>
+        <p>Anh không mong em lúc nào cũng rực rỡ, anh chỉ mong em bình an.</p>
+        <p>Em ơi, anh yêu em, không phải vì em có thể làm được bao nhiêu chuyện. Anh thương em, đâu phải đợi đến khi em thành công, khi em có trong tay mọi thứ mà người đời vẫn hằng mong cầu, anh mới có thể tự hào nói rằng mình yêu em. Tất nhiên, những nỗ lực của em, anh đều thương.</p>
+        <p>Anh sẽ luôn nắm lấy đôi bàn tay em, nhẹ nhàng xoa dịu những nhọc nhằn mà em đã trải qua. Anh nâng niu không phải vì chúng đã làm nên bao điều đáng tự hào, mà vì đó là đôi bàn tay anh thương.</p>
+        <div class="letter-sign">Thương em,<br><span>Anh của em ♡</span></div>
+        <span class="paper-flower">✿</span>
+      </article>
+    </section>
+
+    <section class="music-section section" id="music">
+      <div class="section-label">04 / OUR LITTLE SOUNDTRACK</div>
+      <h2>Một bài hát,<br><em>một góc của chúng mình.</em></h2>
+      <div class="music-player">
+        <div class="vinyl-area"><div class="vinyl" id="vinyl"><div class="vinyl-label"><span>H</span><span class="vinyl-heart">♡</span><span>L</span></div></div><div class="vinyl-shadow"></div></div>
+        <div class="track-info"><span class="caption-small">NOW PLAYING</span><h3>Từ thích thích thành thương thương</h3><p>AMEE & Hoàng Dũng</p>
+          <audio id="audio" preload="auto" autoplay playsinline>
+            <source src="assets/music/our-song.mp3" type="audio/mpeg">
+            <source src="assets/music/our-song.m4a" type="audio/mp4">
+            Trình duyệt của bạn không hỗ trợ phát âm thanh HTML5.
+          </audio>
+          <div class="progress-row"><span id="currentTime">0:00</span><input id="progress" type="range" min="0" max="100" value="0" aria-label="Tiến trình bài hát"><span id="duration">0:00</span></div>
+          <div class="player-controls"><button id="playButton" class="play-button" aria-label="Phát nhạc">▶</button><label class="volume-control">♫ <input id="volume" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Âm lượng"></label></div>
+          <p id="audioStatus" class="audio-status">Nhấn phát để nghe bài hát của chúng mình.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="surprise-section section" id="surprise">
+      <div class="section-label">05 / A LITTLE MESSAGE</div>
+      <h2>Một điều anh muốn<br><em>nói với em.</em></h2>
+      <p class="section-copy">Mỗi lần nhấn, em sẽ nhận được một lời nhắn ngẫu nhiên từ anh.</p>
+      <div class="random-note-stage">
+        <div class="note-sparkle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8c1.4 4.2 3 5.8 7.2 7.2-4.2 1.4-5.8 3-7.2 7.2-1.4-4.2-3-5.8-7.2-7.2 4.2-1.4 5.8-3 7.2-7.2Z"/><path d="M18.5 15.5v5M16 18h5"/></svg></div>
+        <article class="random-note-card" id="randomNoteCard" aria-live="polite">
+          <span class="note-card-label">A LITTLE NOTE FOR YOU</span>
+          <div class="note-card-heart" aria-hidden="true">♡</div>
+          <p id="randomNoteText">Một lời nhắn nhỏ đang chờ em khám phá.</p>
+          <span class="note-card-number" id="randomNoteNumber">♡ / 06</span>
+        </article>
+        <button class="draw-note-button" id="drawNote">Rút một lời nhắn <span>↻</span></button>
+      </div>
+      <div class="final-note-area">
+        <div class="final-note-divider"><span>♡</span></div>
+        <p class="final-note-intro">Và còn một điều cuối cùng anh muốn nói.</p>
+        <button class="reveal-final-button" id="revealFinal">Mở lời cuối cùng của anh ♡</button>
+        <article class="final-message" id="finalMessage" hidden>
+          <span class="final-heart">♡</span>
+          <p>Cuối cùng anh muốn được em hạnh phúc,</p>
+          <p>nhưng anh ước gì em hạnh phúc cùng với anh.</p>
+          <span class="signature">— Huy Tran</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="ending section" id="ending">
+      <div class="ending-flower">✿</div>
+      <div class="section-label">UNTIL OUR NEXT PAGE</div>
+      <h2>Chuyện của mình<br><em>vẫn đang viết tiếp.</em></h2>
+      <p>30.04.2026 — và còn thật nhiều ngày phía trước.</p>
+      <div class="ending-names">Huy Tran <span>♡</span> Thuỳ Linh</div>
+      <button class="back-top" id="backTop">Quay lại trang đầu ↑</button>
+      <button class="back-cover" id="backCover">Quay lại bìa nhật ký ↶</button>
+      <div class="tiny-footer">MADE WITH LOVE, JUST FOR YOU</div>
+    </section>
+    </div><!-- /#diaryContent -->
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>

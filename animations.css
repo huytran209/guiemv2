@@ -1,0 +1,96 @@
+/* Romantic motion system — v4. Animations are intentionally lightweight and reduced-motion aware. */
+:root {
+  --motion-quick: 180ms;
+  --motion-smooth: 620ms;
+  --motion-spring: cubic-bezier(.19, 1, .22, 1);
+  --motion-soft: cubic-bezier(.22, .68, 0, 1.02);
+}
+.scroll-progress { position:fixed; z-index:100; inset:0 0 auto; height:3px; pointer-events:none; background:rgba(181,139,105,.12); }
+.scroll-progress span { display:block; width:100%; height:100%; transform:scaleX(0); transform-origin:left center; background:linear-gradient(90deg,#d8a6a3,#b58b69,#86634e); box-shadow:0 0 12px rgba(181,139,105,.38); will-change:transform; }
+.ambient-orbit { position:fixed; z-index:0; width:min(42vw,520px); aspect-ratio:1; border-radius:50%; pointer-events:none; opacity:.17; filter:blur(2px); background:radial-gradient(circle at 40% 40%,rgba(232,161,173,.42),rgba(232,161,173,0) 67%); transform:translate3d(0,0,0); }
+.ambient-orbit-one { top:12vh; left:-20vw; }
+.ambient-orbit-two { top:125vh; right:-22vw; background:radial-gradient(circle at 50% 50%,rgba(198,111,131,.25),rgba(198,111,131,0) 68%); }
+body > main, .topbar { position:relative; z-index:1; }
+/* Cinematic paper entrance */
+.cover { transform-origin:50% 45%; animation:coverBreath 7s ease-in-out infinite; }
+.cover:after { content:""; position:absolute; inset:-30% auto -30% -65%; width:38%; pointer-events:none; transform:rotate(18deg); background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent); animation:paperGleam 8.5s ease-in-out 1.2s infinite; }
+.cover-stamp { animation:stampPulse 4.5s ease-in-out infinite; }
+.cover-photo { transition:transform 650ms var(--motion-spring), box-shadow 500ms ease; }
+.cover-photo-left { animation:polaroidDriftLeft 8s ease-in-out infinite; }
+.cover-photo-right { animation:polaroidDriftRight 8.8s ease-in-out infinite; }
+.open-book { isolation:isolate; overflow:hidden; transition:transform 260ms var(--motion-spring), box-shadow 260ms ease, background 260ms ease; }
+.open-book:before { content:""; position:absolute; z-index:-1; inset:0; transform:translateX(-110%); background:linear-gradient(110deg,transparent,rgba(255,255,255,.42),transparent); transition:transform 650ms var(--motion-spring); }
+.open-book:hover:before, .open-book:focus-visible:before { transform:translateX(110%); }
+.open-book:hover { transform:translateY(-3px); box-shadow:0 12px 26px rgba(74,49,32,.16); }
+.open-book:active { transform:translateY(0) scale(.985); }
+/* Scroll reveal: never hide content before JS successfully initializes. */
+.js-motion-ready .reveal-on-scroll { opacity:0; transform:translateY(28px) scale(.985); filter:blur(3px); transition:opacity 850ms var(--motion-spring), transform 850ms var(--motion-spring), filter 850ms ease; }
+.js-motion-ready .reveal-on-scroll.is-visible { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+.js-motion-ready .reveal-on-scroll[data-reveal="left"] { transform:translateX(-28px) rotate(-1deg); }
+.js-motion-ready .reveal-on-scroll[data-reveal="right"] { transform:translateX(28px) rotate(1deg); }
+.js-motion-ready .reveal-on-scroll[data-reveal="left"].is-visible,
+.js-motion-ready .reveal-on-scroll[data-reveal="right"].is-visible { transform:translateX(0) rotate(0); }
+/* Cards feel hand-placed, with restrained depth on pointer devices. */
+.portrait-card, .letter-paper, .date-card, .random-note-card, .counter > div, .music-player { transform-style:preserve-3d; backface-visibility:hidden; }
+.portrait-card, .letter-paper, .date-card, .counter > div, .music-player { transition:box-shadow 420ms ease, border-color 420ms ease, transform 550ms var(--motion-spring); }
+.portrait-card:hover, .letter-paper:hover, .date-card:hover, .music-player:hover { box-shadow:0 24px 60px rgba(74,49,32,.16); border-color:#d0b49a; }
+.portrait-card:hover { transform:translateY(-5px) rotate(0deg); }
+.counter > div { position:relative; overflow:hidden; }
+.counter > div:after { content:""; position:absolute; inset:0; transform:translateY(110%); background:linear-gradient(0deg,rgba(232,161,173,.12),transparent); transition:transform 420ms var(--motion-spring); pointer-events:none; }
+.counter > div:hover:after { transform:translateY(0); }
+/* Music controls: tactile press and vinyl motion */
+.floating-music { transform:translateZ(0); transition:width 380ms var(--motion-spring), padding 380ms var(--motion-spring), border-radius 380ms ease, box-shadow 380ms ease, transform 380ms var(--motion-spring); }
+.floating-music:not(.is-compact) { animation:playerArrive 700ms var(--motion-spring) both; }
+.floating-play, .floating-resize, .play-button, .floating-mute { transition:transform 220ms var(--motion-spring), background 220ms ease, box-shadow 220ms ease; }
+.floating-play:hover, .play-button:hover { transform:scale(1.06); box-shadow:0 5px 15px rgba(73,48,30,.18); }
+.floating-resize:hover, .floating-mute:hover { transform:rotate(-5deg) scale(1.06); }
+.floating-play:active, .floating-resize:active, .play-button:active, .floating-mute:active { transform:scale(.93); }
+.vinyl { will-change:transform; }
+.vinyl.playing { animation:vinylSpin 3.2s linear infinite; }
+.vinyl.playing:after { content:""; position:absolute; inset:-7px; border:1px solid rgba(181,139,105,.36); border-radius:50%; animation:vinylAura 2.8s ease-out infinite; }
+/* The love note reveal uses a paper-flip illusion without delaying the message. */
+.random-note-card { transform-origin:50% 35%; }
+.random-note-card.note-changing { animation:noteFlip 360ms var(--motion-spring); }
+.draw-note-button, .reveal-final-button, .back-top, .back-cover { position:relative; overflow:hidden; transition:transform 250ms var(--motion-spring), box-shadow 250ms ease, background 250ms ease; }
+.draw-note-button:before, .reveal-final-button:before, .back-top:before, .back-cover:before { content:""; position:absolute; inset:0; transform:translateX(-120%); background:linear-gradient(110deg,transparent,rgba(255,255,255,.18),transparent); transition:transform 620ms var(--motion-spring); pointer-events:none; }
+.draw-note-button:hover:before, .reveal-final-button:hover:before, .back-top:hover:before, .back-cover:hover:before { transform:translateX(120%); }
+.draw-note-button:active, .reveal-final-button:active, .back-top:active, .back-cover:active { transform:scale(.98); }
+.final-message:not([hidden]) { animation:letterBloom 700ms var(--motion-spring) both; }
+.ending-names span { display:inline-block; animation:heartBeat 2.4s ease-in-out infinite; transform-origin:center; }
+/* A few quiet floating paper flecks, all CSS and no extra network requests. */
+.hero:before, .ending:before { content:""; position:absolute; width:8px; height:8px; border:1px solid rgba(181,139,105,.45); border-radius:2px 8px 2px 8px; top:20%; left:12%; transform:rotate(25deg); animation:floatingFleck 9s ease-in-out infinite; pointer-events:none; }
+.hero:after, .ending:after { content:""; position:absolute; width:6px; height:6px; border:1px solid rgba(198,111,131,.45); border-radius:50%; top:32%; right:13%; animation:floatingFleck 11s ease-in-out -2s infinite reverse; pointer-events:none; }
+@keyframes coverBreath { 0%,100%{transform:translateY(0) rotateX(0)} 50%{transform:translateY(-4px) rotateX(.5deg)} }
+@keyframes paperGleam { 0%,65%,100%{left:-65%;opacity:0} 72%{opacity:1} 84%{left:135%;opacity:0} }
+@keyframes stampPulse { 0%,100%{transform:rotate(12deg) scale(1)} 50%{transform:rotate(8deg) scale(1.05)} }
+@keyframes polaroidDriftLeft { 0%,100%{transform:rotate(-5deg) translateY(0)} 50%{transform:rotate(-3.7deg) translateY(-4px)} }
+@keyframes polaroidDriftRight { 0%,100%{transform:rotate(5deg) translateY(0)} 50%{transform:rotate(3.7deg) translateY(-5px)} }
+@keyframes playerArrive { from{opacity:.75;transform:translateY(-12px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+@keyframes vinylSpin { to{transform:rotate(360deg)} }
+@keyframes vinylAura { 0%{transform:scale(.98);opacity:.7} 100%{transform:scale(1.09);opacity:0} }
+@keyframes noteFlip { 0%{transform:perspective(700px) rotateX(0);opacity:1} 45%{transform:perspective(700px) rotateX(-8deg);opacity:.5} 100%{transform:perspective(700px) rotateX(0);opacity:1} }
+@keyframes letterBloom { from{opacity:0;transform:translateY(18px) scale(.97);filter:blur(3px)} to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)} }
+@keyframes heartBeat { 0%,100%{transform:scale(1)} 12%{transform:scale(1.17)} 24%{transform:scale(1)} 36%{transform:scale(1.1)} 48%{transform:scale(1)} }
+@keyframes floatingFleck { 0%,100%{transform:translate3d(0,0,0) rotate(25deg);opacity:.35} 50%{transform:translate3d(8px,-15px,0) rotate(75deg);opacity:.8} }
+@media (hover:hover) and (pointer:fine) {
+ .cover-wrap:hover .cover-photo-left { transform:rotate(-8deg) translate(-4px,-4px); }
+ .cover-wrap:hover .cover-photo-right { transform:rotate(8deg) translate(4px,-5px); }
+}
+@media (max-width:600px) {
+ .ambient-orbit { width:78vw; opacity:.12; }
+ .hero:before { left:5%; top:14%; }
+ .hero:after { right:5%; top:27%; }
+ .cover:after { animation-duration:12s; }
+ .portrait-card:hover, .letter-paper:hover, .date-card:hover, .music-player:hover { transform:none; }
+ .floating-music:not(.is-compact) { max-width:calc(100vw - 16px); }
+}
+@media (prefers-reduced-motion:reduce) {
+ *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; scroll-behavior:auto!important; transition-duration:.01ms!important; }
+ .js-motion-ready .reveal-on-scroll { opacity:1!important; transform:none!important; filter:none!important; }
+}
+.cover { transform:perspective(1000px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)); }
+.paper-burst { position:absolute; z-index:120; width:1px; height:1px; pointer-events:none; }
+.paper-burst i { position:absolute; left:0; top:0; color:#b77977; font-family:var(--serif); font-size:18px; font-style:normal; opacity:0; animation:burstOut 780ms var(--motion-spring) var(--burst-delay) both; }
+@keyframes burstOut { 0%{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(0)} 18%{opacity:.9} 100%{opacity:0;transform:translate(calc(-50% + cos(var(--burst-angle))*var(--burst-distance)),calc(-50% + sin(var(--burst-angle))*var(--burst-distance))) scale(1.15) rotate(24deg)} }
+@media (max-width:600px) { .paper-burst { display:none; } }
+@media (prefers-reduced-motion:reduce) { .paper-burst { display:none!important; } }
